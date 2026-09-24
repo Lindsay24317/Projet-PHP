@@ -2,8 +2,10 @@
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
 $artiste = false;
+$representations = [];
 
 if ($id !== false && $id !== null){
+    // Récupération de l'artiste 
 
     $sql = "SELECT a.Id_Artiste,
                    a.nom,
@@ -17,6 +19,21 @@ if ($id !== false && $id !== null){
     $request->execute([$id]);
 
     $artiste = $request->fetch();
+
+    // Récupération des représentations
+    if ($artiste){ 
+
+        $sql = "SELECT r.date_debut,
+                       r.date_fin
+                FROM   Participe AS p
+                INNER JOIN Representation AS r
+                     ON p.Id_representation = r.Id_representation
+                WHERE  p.Id_Artiste = ?";
+    }
+    $request = $pdo->prepare($sql);
+    $request->execute([$id]);
+
+    $representations = $request->fetchAll();
 }
 
 ?>
@@ -33,10 +50,17 @@ if ($id !== false && $id !== null){
     <dl>
         <dt>STYLE DE MUSIQUE:</dt>
         <dd><?= htmlspecialchars($artiste['genre_musical']) ?></dd>
+
         <dt>DESCRIPTION:</dt>
         <dd><?= htmlspecialchars($artiste['description']) ?></dd>
+
         <dt>SETLIST:</dt>
         <dd><?= htmlspecialchars($artiste['setlist']) ?></dd>
 
+        <dt>JOURS DE REPRESENTATION:</dt>
+        <?php foreach ($representations as $representation) : ?>
+
+            <?=  htmlspecialchars($representation['date_debut']) ?>
+        <?php endforeach ?>
     </dl>
 <?php endif ?>
