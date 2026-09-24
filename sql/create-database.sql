@@ -11,8 +11,8 @@ CREATE TABLE User_(
 CREATE TABLE Artiste(
    Id_Artiste INT IDENTITY,
    nom VARCHAR(50) ,
-   description VARCHAR(120) ,
-   setlist VARCHAR(50) ,
+   description VARCHAR(500) ,
+   setlist VARCHAR(1000) ,
    genre_musical VARCHAR(50) ,
    PRIMARY KEY(Id_Artiste)
 );
@@ -47,9 +47,9 @@ GO
 
 INSERT INTO dbo.Artiste (
     nom,
-    genre_musical
+    genre_musical,
     description,
-    setlist,
+    setlist
 )
 
 VALUES 
@@ -58,7 +58,7 @@ N'Genre : Rap / Hip-Hop',
 N'Description : Drake est un rappeur Canadien connu pour ses musique comme Gods plan, Controlla, Headlines,... ou aussi pour son role dans Degrassi.' , 
 N'Setlist : Shabang, One dance, Too Good, Over my dead body, The Motto, Trust Issues' 
 ),
-(N'Travis Scott'
+(N'Travis Scott',
 N'Genre : Trap / Hip-hop / Psychedelic Rap',
 N'Description : Un show très énergique avec grosses productions visuelles, basses puissantes et ambiance de festival.',
 N'Setlist : SICKO MODE, goosebumps, FE!N, HIGHEST IN THE ROOM, Antidote, BUTTERFLY EFFECT, 4X4, goosebumps (Remix)'
@@ -93,7 +93,7 @@ N'Genre : Trap / Hip-hop',
 N'Description : Flow posé et sombre, avec un style reconnaissable et beaucoup de collaborations populaires.',
 N'Setlist : a lot, Bank Account, redrum, Jimmy Cooks, Rich Flex, Runnin, Glock in My Lap, No Heart'
 ),
-(N'Megan Thee Stallion'
+(N'Megan Thee Stallion',
 N'Genre : Hip-hop / Southern Rap / Trap',
 N'Description : Une performeuse très énergique qui apporte une grosse dimension dansante au festival.',
 N'Setlist : Savage, HISS, Body, Mamushi, Thot Shit, Her, Plan B, WAP'
@@ -102,15 +102,15 @@ N'Setlist : Savage, HISS, Body, Mamushi, Thot Shit, Her, Plan B, WAP'
 N'Genre : Trap / Rage / Hip-hop',
 N'Description : Sonorités très modernes, performances chaotiques et ambiance particulièrement adaptée à une grande scène.',
 N'Setlist : Magnolia, Sky, FE!N, Shoota, R.I.P., Stop Breathing, Carnival, Rather Lie'
-)
+),
 (N'J.Cole',
 N'Genre : Hip-hop / Conscious Rap',
-N'Description : Un rappeur davantage axé sur l\écriture, les histoires personnelles et les performances live.',
+N'Description : Un rappeur davantage axé sur l''écriture, les histoires personnelles et les performances live.',
 N'Setlist : No Role Modelz, Middle Child, Wet Dreamz, A Lot, Love Yourz, MIDDLE CHILD, Work Out, Power Trip'
 ),
 (N'Lil Baby',
 N'Genre : Trap / Hip-hop',
-N'Description : Une des figures importantes de la trap moderne d\Atlanta, avec un style très rythmé.',
+N'Description : Une des figures importantes de la trap moderne d''Atlanta, avec un style très rythmé.',
 N'Setlist : Drip Too Hard, Freestyle, Yes Indeed, Woah, The Bigger Picture, Emotionally Scarred, On Me, Pure Cocaine'
 ),
 (N'Gunna',
@@ -125,46 +125,45 @@ N'Setlist : Crazy in Love, Formation, Run the World (Girls), Diva, Cuff It, Brea
 ),
 (N'Justin Bieber',
 N'Pop / R&B / Pop-R&B / Dance-pop',
-N'Description : chanteur canadien mondialement connu pour ses nombreux succès dans la pop et le R&B. Révélé très jeune, il s’est imposé grâce à sa voix, ses mélodies accrocheuses et ses performances scéniques. Son style a évolué au fil des années, passant de la pop adolescente à un son plus mature mêlant R&B, pop et musique électronique. Il apporte au festival une ambiance à la fois énergique, dansante et romantique.',
+N'Description : chanteur canadien mondialement connu pour ses nombreux succès dans la pop et le R&B. Révélé très jeune, il s''est imposé grâce à sa voix, ses mélodies accrocheuses et ses performances scéniques. Son style a évolué au fil des années, passant de la pop adolescente à un son plus mature mêlant R&B, pop et musique électronique. Il apporte au festival une ambiance à la fois énergique, dansante et romantique.',
 N'Setlist : Baby, Sorry, What Do You Mean?, Where Are Ü Now, Love Yourself, Company, Peaches, Hold On, Ghost, Stay, Beauty and a Beat, Never Say Never'
 ),
 (N'Bruno Mars',
 N'Genre : Pop / Funk / R&B / Soul',
 N'Description : Une véritable machine à hits, avec un spectacle très dansant et beaucoup de musiciens live.',
-N'Setlist : 24K Magic, Uptown Funk, That\s What I Like, Locked Out of Heaven, Treasure, Grenade, Just the Way You Are, I Just Might'
+N'Setlist : 24K Magic, Uptown Funk, That''s What I Like, Locked Out of Heaven, Treasure, Grenade, Just the Way You Are, I Just Might'
 ),
 (N'GloRilla',
 N'Genre : Memphis Rap / Trap / Hip-hop',
-N'Description : Une énergie brute et un rap très direct, idéale pour faire monter l\ambiance.',
-N'Setlist : F.N.F. (Let\s Go), Tomorrow 2, Yeah Glo!, Wanna Be, TGIF, Lick Or Sum, Whatchu Kno About Me, O Let\s Do It'
+N'Description : Une énergie brute et un rap très direct, idéale pour faire monter l''ambiance.',
+N'Setlist : F.N.F. (Let''s Go), Tomorrow 2, Yeah Glo!, Wanna Be, TGIF, Lick Or Sum, Whatchu Kno About Me, O Let''s Do It'
 );
 
 GO
 
 INSERT INTO dbo.Representation (
     date_debut,
-    date_fin,
-    artiste_id
+    date_fin
 )
 
 VALUES
-('10-07-2027', '10-07-2027'),
-('10-07-2027', '10-07-2027'),
-('10-07-2027', '10-07-2027'),
-('10-07-2027', '10-07-2027'),
-('10-07-2027', '10-07-2027'),
-('11-07-2027', '11-07-2027'),
-('11-07-2027', '11-07-2027'),
-('11-07-2027', '11-07-2027'),
-('11-07-2027', '11-07-2027'),
-('11-07-2027', '11-07-2027'),
-('11-07-2027', '11-07-2027'),
-('12-07-2027', '12-07-2027'),
-('12-07-2027', '12-07-2027'),
-('12-07-2027', '12-07-2027'),
-('12-07-2027', '12-07-2027'),
-('12-07-2027', '12-07-2027'),
-('12-07-2027', '12-07-2027');
+('2027-07-10', '2027-07-10'),
+('2027-07-10', '2027-07-10'),
+('2027-07-10', '2027-07-10'),
+('2027-07-10', '2027-07-10'),
+('2027-07-10', '2027-07-10'),
+('2027-07-11', '2027-07-11'),
+('2027-07-11', '2027-07-11'),
+('2027-07-11', '2027-07-11'),
+('2027-07-11', '2027-07-11'),
+('2027-07-11', '2027-07-11'),
+('2027-07-11', '2027-07-11'),
+('2027-07-12', '2027-07-12'),
+('2027-07-12', '2027-07-12'),
+('2027-07-12', '2027-07-12'),
+('2027-07-12', '2027-07-12'),
+('2027-07-12', '2027-07-12'),
+('2027-07-12', '2027-07-12');
 
 Go
 
