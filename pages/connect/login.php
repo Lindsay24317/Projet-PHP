@@ -5,8 +5,8 @@ $values = ['email' => ''];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $values['email'] = trim($_POST['email']) ?? '';
-    $password = trim($_POST["password"]);
+    $values['email'] = trim($_POST['email'] ?? '');
+    $password = trim($_POST["password"] ?? '');
 
     if($values['email'] === ''){
         $errors['email'] = "L'email est obligatoire.";
@@ -23,23 +23,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if (!$errors){
 
-        $sql = "SELECT id, email, mot_de_passe, role From utilisateur WHERE email = ?";
+        $sql = "SELECT Id_User, email, mot_de_passe From User_ WHERE email = ?";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$values['email']]);
 
-        $user = $stmt->fetch();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if($user || !password_verify($password, $user['mot_de_passe'])){
+        if(!$user || !password_verify($password, $user['mot_de_passe'])){
             $errors['global'] = "Email et/ou mot de passe incorrect.";
         }
         else{
             $_SESSION['user'] = [
-                'id' => $user['id'],
-                'email' => $values['email'],
-                'role' => $user['role']
+                'id' => $user['Id_User'],
+                'email' => $user['email'],
             ];
-            header("Location: index.php?page=reservation");
+            header("Location: index.php?page=profil");
         }
     }
 }

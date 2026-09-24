@@ -48,9 +48,15 @@ $routes = [
     // Réservation
 
     'reservation' => [
-        'file' => 'pages/reservation.php',
-        'title' => 'Réservation',
-        'auth' => true
+        'file' => 'pages/billet/reserve.php',
+        'title' => 'Faire réservation',
+        'auth' => false
+    ],
+
+    'profil' => [
+        'file' => 'pages/billet/profil.php',
+        'title' => 'Profil',
+        'auth' => true 
     ],
 
     // Gestion de la connexion

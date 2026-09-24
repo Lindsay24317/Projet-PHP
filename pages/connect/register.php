@@ -5,9 +5,9 @@ $values = ['email' => ''];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-    $values['email'] = trim($_POST['email']) ?? '';
-    $password = trim($_POST["password"]);
-    $confirmation = trim($_POST["confirmation"]);
+    $values['email'] = trim($_POST['email'] ?? '');
+    $password = trim($_POST["password"] ?? '');
+    $confirmation = trim($_POST["confirmation"] ?? '');
 
     if($values['email'] === ''){
         $errors['email'] = "L'email est obligatoire.";
@@ -17,7 +17,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors['email'] = "Le format de l'email est incorrect.";
     }
 
-    else if (strlen($values['email'] > 180)){
+    else if (strlen($values['email']) > 180){
         $errors['email'] = "L'email ne peut pas excéder 180 caractères.";
     }
 
@@ -29,7 +29,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors['password'] = "Le mot de passe doit avoir minimum 8 caractères.";
     }
 
-    if($password !== $confirmation){
+    if($confirmation === ''){
+        $errors['confirmation'] = "La confirmation du mot de passe est obligatoire.";
+    }
+
+    else if($password !== $confirmation){
         $errors['confirmation'] = "Le mot de passe ne correspond pas.";
     }
 
@@ -42,7 +46,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO utilisateur (email, mot_de_passe)
+            $sql = "INSERT INTO User_ (email, mot_de_passe)
             VALUES (?, ?)";
 
             $stmt = $pdo->prepare($sql);
@@ -51,7 +55,6 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $_SESSION['user'] = [
                 'id' => $pdo->lastInsertId(),
                 'email' => $values['email'],
-                'role' => 'user'
             ];
 
             header('Location: index.php');

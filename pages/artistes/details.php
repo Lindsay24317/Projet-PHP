@@ -23,7 +23,8 @@ if ($id !== false && $id !== null){
     // Récupération des représentations
     if ($artiste){ 
 
-        $sql = "SELECT r.date_debut,
+        $sql = "SELECT r.Id_representation,
+                       r.date_debut,
                        r.date_fin
                 FROM   Participe AS p
                 INNER JOIN Representation AS r
@@ -60,7 +61,9 @@ if ($id !== false && $id !== null){
         <dt>JOURS DE REPRESENTATION:</dt>
         <?php foreach ($representations as $representation) : ?>
 
-            <?=  htmlspecialchars($representation['date_debut']) ?>
+            <?=  htmlspecialchars($representation['date_debut']) ?><br>
+
+            <a href="index.php?page=reservation&id=<?= $representation['Id_representation'] ?>" class="btn">Réserve dés maintenant</a>
         <?php endforeach ?>
     </dl>
 <?php endif ?>

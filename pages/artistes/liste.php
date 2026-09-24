@@ -22,8 +22,6 @@ $artistes = $pdo->query($sql)->fetchAll();
     <h2><?= $artiste["nom"] ?></h2>
     <div class="actions">
         <a href="index.php?page=artiste-details&amp;id=<?= $artiste['Id_Artiste'] ?>" class="btn">Détails</a>
-       
-
     
     </div>
     </article>
