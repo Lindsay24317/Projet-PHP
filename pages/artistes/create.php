@@ -103,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <h1>Ajouter un artiste</h1>
 
-<form action="post">
+<form method="post">
     <div>
         <label for="nom">Nom de l'artiste: </label>
         <input type="text" name="nom" id="nom" required value="<?= $values['nom'] ?>">
@@ -113,28 +113,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     </div>
 
     <div>
-        <label for="genre_musical">Style musical de l'artiste: </label>
-        <input type="text" name="genre_musical" id="genre_musical" required value="<?= $values['genre_musical'] ?>">
+        <label for="genre_musical">Style musical de l'artiste: </label><br>
+        <textarea class="txtarea" name="genre_musical" id="genre_musical" required><?= $values['genre_musical'] ?></textarea>
         <?php if (isset($errors['genre_musical'])) : ?>
             <span class="error"><?= $errors['genre_musical'] ?></span>
         <?php endif ?>
     </div>
 
     <div>
-        <label for="description">Description de l'artiste: </label>
-        <input type="text" name="description" id="description" required value="<?= $values['description'] ?>">
+        <label for="description">Description de l'artiste: </label><br>
+        <textarea class="txtarea" name="description" id="description" required><?= $values['description'] ?></textarea>
         <?php if (isset($errors['description'])) : ?>
             <span class="error"><?= $errors['description'] ?></span>
         <?php endif ?>
     </div>
 
     <div>
-        <label for="setlist">Setlist de l'artiste: </label>
-        <input type="text" name="setlist" id="setlist" required value="<?= $values['setlist'] ?>">
+        <label for="setlist">Setlist de l'artiste: </label><br>
+        <textarea class="txtarea" name="setlist" id="setlist" required><?= $values['setlist'] ?></textarea>
         <?php if (isset($errors['setlist'])) : ?>
             <span class="error"><?= $errors['setlist'] ?></span>
         <?php endif ?>
     </div>
+
+    <div>
+        <label for="date_debut">Date de passage de l'artiste: </label>
+        <input type="date" name="date_debut" id="date_debut" required value="<?= $values['date_debut'] ?>">
+        <?php if (isset($errors['date_debut'])) : ?>
+            <span class="error"><?= $errors['date_debut'] ?></span>
+        <?php endif ?>
+    </div>
+
+    <button>Ajouter</button>
+
 
     
 </form>

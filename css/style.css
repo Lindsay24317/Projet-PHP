@@ -9,6 +9,30 @@ body{
     background-color: #EBA38D;
 }
 
+.home{
+    min-height: 100vh;
+    padding: 80px 10%;
+    text-align: center;
+}
+.home h1{
+    font-size: 80px;
+    margin-bottom: 15px;
+}
+
+.home h2{
+    margin-top: 45px;
+    margin-bottom: 15px;
+    font-size: 30px;
+}
+
+.home p{
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.8;
+    font-size: 17px;
+
+}
+
 main {
     margin-left: auto;
     margin-right: auto;
@@ -108,3 +132,8 @@ h1{
     display: block;
     margin: 0 auto;
   }
+
+.txtarea {
+    width: 400px;
+    padding: 30px;
+} 
