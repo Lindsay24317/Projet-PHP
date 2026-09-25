@@ -37,10 +37,10 @@ CREATE TABLE Participe(
 CREATE TABLE Reservation(
    Id_User INT,
    Id_representation INT,
+   date_jour DATE,
+   quantite INT,
    date_reservation DATE,
-   heure_debut TIME,
-   heure_fin TIME,
-   PRIMARY KEY(Id_User, Id_representation),
+   PRIMARY KEY(Id_User, Id_representation, date_jour),
    FOREIGN KEY(Id_User) REFERENCES User_(Id_User),
    FOREIGN KEY(Id_representation) REFERENCES Representation(Id_representation)
 );
