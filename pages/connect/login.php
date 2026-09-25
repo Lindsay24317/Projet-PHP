@@ -23,7 +23,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     if (!$errors){
 
-        $sql = "SELECT Id_User, email, mot_de_passe From User_ WHERE email = ?";
+        $sql = "SELECT Id_User, email, mot_de_passe, role 
+                From User_ 
+                WHERE email = ?";
 
         $stmt = $pdo->prepare($sql);
         $stmt->execute([$values['email']]);
@@ -37,6 +39,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $_SESSION['user'] = [
                 'id' => $user['Id_User'],
                 'email' => $user['email'],
+                'role' => $user['role'],
             ];
             header("Location: index.php?page=profil");
         }

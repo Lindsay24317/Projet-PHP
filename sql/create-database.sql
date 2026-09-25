@@ -4,6 +4,7 @@ CREATE TABLE User_(
    prenom VARCHAR(50) ,
    email VARCHAR(115) ,
    mot_de_passe VARCHAR(150) ,
+   role VARCHAR(20) ,
    PRIMARY KEY(Id_User),
    UNIQUE(email)
 );

@@ -8,6 +8,7 @@ if ($id !== false && $id !== null){
     // Récupération de l'artiste 
 
     $sql = "SELECT a.Id_Artiste,
+                   a.photo,
                    a.nom,
                    a.genre_musical,
                    a.description,
@@ -49,6 +50,7 @@ if ($id !== false && $id !== null){
     <h1>Prêt(e) pour <?=  htmlspecialchars($artiste["nom"]) ?></h1>
 
     <dl>
+        <dt class="art"><img src="/festival_musical/images/<?= htmlspecialchars($artiste['photo']) ?>" alt="<?= htmlspecialchars($artiste['nom']) ?>"></dt>
         <dt>STYLE DE MUSIQUE:</dt>
         <dd><?= htmlspecialchars($artiste['genre_musical']) ?></dd>
 

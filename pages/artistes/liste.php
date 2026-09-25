@@ -17,10 +17,9 @@ $artistes = $pdo->query($sql)->fetchAll();
 <div class="cards">
 
 <?php foreach ($artistes as $artiste) : ?>
-<!-- <?php var_dump($artiste['photo']); ?> -->
-    <article class="card">
-    
 
+    <article class="card">
+        
     <h2><?= $artiste["nom"] ?></h2>
     <img src="images/<?= htmlspecialchars($artiste['photo']) ?>" alt="<?= htmlspecialchars($artiste['nom']) ?>">
     <div class="actions">
