@@ -107,7 +107,7 @@ N'a lot, Bank Account, redrum, Jimmy Cooks, Rich Flex, Runnin, Glock in My Lap, 
 N'Hip-hop / Southern Rap / Trap',
 N'Une performeuse très énergique qui apporte une grosse dimension dansante au festival.',
 N'Savage, HISS, Body, Mamushi, Thot Shit, Her, Plan B, WAP',
-'megan-thee-stallion.jpg'
+'megan-the-stallion.jpg'
 ),
 (N'Playboi Carti',
 N'Trap / Rage / Hip-hop',

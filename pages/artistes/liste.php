@@ -2,11 +2,12 @@
 
 // Je récupere la liste des artistes présent au festival
 
-$sql = "SELECT Id_Artiste, nom 
+$sql = "SELECT Id_Artiste, nom, photo 
         FROM Artiste
         ORDER BY nom";
         
 $artistes = $pdo->query($sql)->fetchAll();
+
 ?>
 
 <h1>Liste des artistes</h1>
@@ -16,10 +17,12 @@ $artistes = $pdo->query($sql)->fetchAll();
 <div class="cards">
 
 <?php foreach ($artistes as $artiste) : ?>
-
+<!-- <?php var_dump($artiste['photo']); ?> -->
     <article class="card">
+    
 
     <h2><?= $artiste["nom"] ?></h2>
+    <img src="images/<?= htmlspecialchars($artiste['photo']) ?>" alt="<?= htmlspecialchars($artiste['nom']) ?>">
     <div class="actions">
         <a href="index.php?page=artiste-details&amp;id=<?= $artiste['Id_Artiste'] ?>" class="btn">Détails</a>
     

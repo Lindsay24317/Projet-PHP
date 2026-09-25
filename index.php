@@ -17,7 +17,7 @@ $routes = [
 
     'artistes' => [
         'file' => 'pages/artistes/liste.php',
-        'title' => 'Liste des artistes présent',
+        'title' => 'Line-up',
         'auth' => false
     ],
 
