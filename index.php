@@ -54,6 +54,12 @@ $routes = [
         'auth' => false
     ],
 
+    'commande' => [
+    'file' => 'pages/billet/commande.php',
+    'title' => 'Commande',
+    'auth' => false
+    ],
+
     'profil' => [
         'file' => 'pages/billet/profil.php',
         'title' => 'Profil',

@@ -3,38 +3,50 @@
 $values = [
     'nom' => '',
     'email' => '',
+    'billet' => '',
     'date_jour' => '',
-    'quantité' => ''
+    'quantite' => ''
 ];
 
 $errors = [];
+
+if (isset($_POST['billet'])) {
+    $billet = $_POST['billet'];
+
+}
 
 ?>
 
 <h1>Réserve ta place</h1>
 
-<form method="post">
+<form action="index.php" method="get">
 <div class="billets">
 
 <div class="card-billet">
     <h2>1 JOUR</h2>
     <p>Accès au festival pour une journée.</p>
     <p class="prix">40€</p>
-    <button type="submit" name="billet" value="">Choisir</button>
+    <a href="?page=commande&billet=1_jour">
+    <button type="button">Choisir</button>
+    </a>
 </div>
 
 <div class="card-billet">
     <h2>2 JOURS</h2>
     <p>Accès au festival pour deux journées.</p>
     <p class="prix">80€</p>
-    <button type="submit" name="billet" value="">Choisir</button>
+    <a href="?page=commande&billet=2_jours">
+    <button type="button">Choisir</button>
+    </a>
 </div>
 
 <div class="card-billet">
     <h2>PASS</h2>
     <p>Accès au festival tout les jours.</p>
     <p class="prix">100€</p>
-    <button type="submit" name="billet" value="">Choisir</button>
+    <a href="?page=commande&billet=pass">
+    <button type="button">Choisir</button>
+    </a>
 </div>
 
 </div>
