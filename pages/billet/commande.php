@@ -96,7 +96,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <label for="quantite">Quantité :</label>
     <input type="number" id="quantite" name="quantite" value="1" min="1">
 
-    <h3>Choisis ton ou tes jours :</h3>
+    <h3>Choisis ton/tes jours :</h3>
 
     <?php if ($billet === '1_jour'): ?>
 
