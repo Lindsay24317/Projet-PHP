@@ -1,8 +1,10 @@
 <?php
 
+// on crée 2 tableaux vide pour stocker les erreurs et les valeurs du formulaire.
 $errors = [];
 $values = ['email' => ''];
 
+// On vérifie les informations que l'utilisateur entre dans le formulaire
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
     $values['email'] = trim($_POST['email'] ?? '');
@@ -20,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors['password'] ="Le mot de passe est obligatoire.";
     }
 
-
+    // On verifie que l'utilisateur n'entre pas d'erreurs
     if (!$errors){
 
         $sql = "SELECT Id_User, email, mot_de_passe, role 

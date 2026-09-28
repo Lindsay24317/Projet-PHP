@@ -38,7 +38,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     }
 
 
-    // Enregistrement DB
+    // Enregistrement du nouvel utilisateur dans la DB
 
     if (!$errors){
 

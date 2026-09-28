@@ -63,7 +63,7 @@ if ($id !== false && $id !== null){
         <dt>JOURS DE REPRESENTATION:</dt>
         <?php foreach ($representations as $representation) : ?>
 
-            <?=  htmlspecialchars($representation['date_debut']) ?><br>
+            <dd><?=  htmlspecialchars($representation['date_debut']) ?></dd><br>
 
             <a href="index.php?page=reservation&id=<?= $representation['Id_representation'] ?>" class="btn">Réserve dés maintenant</a>
         <?php endforeach ?>

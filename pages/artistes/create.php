@@ -1,5 +1,12 @@
 <?php
-
+// Les seules dates auxquelles les artistes peuvent performer
+$datesFestival = [
+    '2027-07-10',
+    '2027-07-11',
+    '2027-07-12'
+];
+// D'abord je demande à ma base de données l'identifiant et le nom de chaque artistes
+// Ensuite, je prépare les valeurs du formulaire.
 $query = "SELECT Id_Artiste, nom FROM Artiste ORDER BY nom";
 $artistes = $pdo->query($query)->fetchAll();
 
@@ -9,12 +16,13 @@ $values = [
     'genre_musical' => '',
     'description' => '',
     'setlist' => '',
+    'photo' => '',
     'date_debut' => '',
 ];
 
 $errors = [];
 
-// Gérer le formulaire
+// Gérer le formulaire et stock les erreurs de validation
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
@@ -40,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors["description"] = "La description est obligatoire";
     }
     else if (strlen($values['description']) > 2000){
-        $errors["description"] = "La description ne peut pas dépasser 1000 caractères.";
+        $errors["description"] = "La description ne peut pas dépasser 2000 caractères.";
     }
 
     if ($values['setlist'] === ''){
@@ -54,11 +62,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
         $errors["date_debut"] = "La date de représentation est obligatoire";
     }
 
+    if(!isset($_FILES['photo']) || $_FILES['photo']['error'] !==UPLOAD_ERR_OK){
+        $errors['photo'] = "La photo est obligatoire";
+    }
+
+    // On utilise un try/catch pour gérer les erreurs de base de données
     if (!$errors){
         try{
 
-            $sql = "INSERT INTO Artiste (nom, genre_musical, description, setlist)
-            VALUES (?, ?, ?, ?)";
+            // Récupération du nom de la photo
+            $nomPhoto = basename($_FILES['photo']['name']);
+
+            // Met la photo dans le dossier images
+            move_uploaded_file($_FILES['photo']['tmp_name'],
+            'images/' . $nomPhoto
+        );
+
+            $sql = "INSERT INTO Artiste (nom, genre_musical, description, setlist, photo)
+            VALUES (?, ?, ?, ?, ?)";
 
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
@@ -66,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
                 $values['genre_musical'],
                 $values['description'],
                 $values['setlist'],
-                
+                $nomPhoto
             ]);
 
             $Id_Artiste = $pdo->lastInsertId();
@@ -103,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
 
 <h1>Ajouter un artiste</h1>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
     <div>
         <label for="nom">Nom de l'artiste: </label>
         <input type="text" name="nom" id="nom" required value="<?= $values['nom'] ?>">
@@ -127,21 +148,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
             <span class="error"><?= $errors['description'] ?></span>
         <?php endif ?>
     </div>
-
+    
     <div>
         <label for="setlist">Setlist de l'artiste: </label><br>
         <textarea class="txtarea" name="setlist" id="setlist" required><?= $values['setlist'] ?></textarea>
         <?php if (isset($errors['setlist'])) : ?>
             <span class="error"><?= $errors['setlist'] ?></span>
-        <?php endif ?>
-    </div>
-
+            <?php endif ?>
+     </div>
+     <div>
+        <label for="photo">Ajouter une photo</label>
+        <input type="file" name="photo" id="photo" required>
+     </div>
+        
     <div>
         <label for="date_debut">Date de passage de l'artiste: </label>
-        <input type="date" name="date_debut" id="date_debut" required value="<?= $values['date_debut'] ?>">
-        <?php if (isset($errors['date_debut'])) : ?>
-            <span class="error"><?= $errors['date_debut'] ?></span>
-        <?php endif ?>
+        <select name="date_debut" id="date_debut" required>
+
+           <option value="">-- Choisir une date --</option>
+           <option value="2027-07-10">10 juillet 2027</option>
+           <option value="2027-07-11">11 juillet 2027</option>
+           <option value="2027-07-12">12 juillet 2027</option>
+
+        </select>
     </div>
 
     <button>Ajouter</button>

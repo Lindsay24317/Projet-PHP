@@ -8,7 +8,11 @@ if($_SERVER['REQUEST_METHOD'] !== "POST"){
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 
 if($id){
-    $sql = "DELETE FROM livre WHERE id = ?";
+    $sql = "DELETE FROM Participe WHERE id_Artiste = ?";
+    $stmt = $pdo->prepare($sql);
+    $stmt->execute([$id]);
+
+    $sql = "DELETE FROM Artiste WHERE Id_Artiste = ?";
     $stmt = $pdo->prepare($sql);
     $stmt->execute([$id]);
 }
