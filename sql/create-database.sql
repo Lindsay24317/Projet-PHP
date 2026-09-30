@@ -43,7 +43,7 @@ CREATE TABLE Reservation(
    date_reservation DATE,
    type_billet VARCHAR (20),
    prix DECIMAL(10,2),
-   PRIMARY KEY(Id_User, Id_representation, date_jour),
+   PRIMARY KEY(Id_User, Id_representation),
    FOREIGN KEY(Id_User) REFERENCES User_(Id_User),
    FOREIGN KEY(Id_representation) REFERENCES Representation(Id_representation)
 );
