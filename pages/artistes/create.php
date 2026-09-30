@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST'){
     if (!$errors){
         try{
 
-            // Récupération du nom de la photo
+            // Récupération du nom de la photo envoyé par l'admin
             $nomPhoto = basename($_FILES['photo']['name']);
 
             // Met la photo dans le dossier images
