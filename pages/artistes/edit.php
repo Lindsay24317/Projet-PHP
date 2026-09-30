@@ -1,6 +1,8 @@
 <?php 
 $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
 
+// Je récupere les informations d'un artiste et la représentation à laquelle il participe
+// Je relie la table Artiste à Participe grâce a Id_Artiste puis je relie Participe a Représentation grâce a Id_representation
 $query = "SELECT a.Id_Artiste, nom, genre_musical, description, setlist, r.date_debut, r.Id_representation
           FROM Artiste AS a
           JOIN Participe AS p
