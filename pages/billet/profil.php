@@ -4,7 +4,7 @@ if (!isset($_SESSION['user'])) {
     header('Location: index.php?page=login');
     exit;
 }
-
+// Récupération de l'id et de l'email de l'utilisateur
 $idUser = $_SESSION['user']['id'];
 
 $sql = "SELECT email
@@ -16,6 +16,7 @@ $stmt->execute([$idUser]);
 
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
+//Récupération du bitte de l'utilisateur 
 $sql = "SELECT type_billet, prix, quantite, date_reservation, date_jour
         FROM Reservation
         WHERE Id_User = ?";
@@ -35,6 +36,7 @@ $billets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Mes billets</h2>
 
+<!-- Vérification de si l'utilisateur possède des billets -->
 <?php if (!$billets): ?>
 
     <p>Tu n'as pas encore de billet.</p>

@@ -1,5 +1,6 @@
 <?php
 
+// Je crée le tableau des valeurs du formulaire
 $values = [
     'nom' => '',
     'email' => '',
@@ -8,6 +9,7 @@ $values = [
     'quantite' => ''
 ];
 
+// Je crée un tableau vide pour les erreurs du formulaire 
 $errors = [];
 
 if (isset($_POST['billet'])) {
@@ -16,7 +18,7 @@ if (isset($_POST['billet'])) {
 }
 
 ?>
-
+<!-- Création de la page de reservation de billet -->
 <h1>Réserve ta place</h1>
 
 <form action="index.php" method="get">

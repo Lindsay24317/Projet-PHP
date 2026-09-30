@@ -1,12 +1,14 @@
 <?php
-
+// Ici je vérifie que l'utilisateur est bien connecté pour pouvoir faire la commande
 if (!isset($_SESSION['user'])) {
     header('Location: index.php?page=login');
     exit;
 }
 
+// Je récupère ensuite le billet choisi par l'utilisateur
 $billet = $_GET['billet'] ?? '';
 
+// Je crée un tableau des différents billets disponible sur le site
 $billets = [
     '1_jour' => [
         'nom' => '1 JOUR',
@@ -22,23 +24,25 @@ $billets = [
     ]
 ];
 
+// Je vérifie que le billet existe 
 if (!isset($billets[$billet])) {
     echo "<p>Billet invalide.</p>";
     exit;
 }
 
+// Je récupère le nom et le prix du billet choisi
 $nomBillet = $billets[$billet]['nom'];
 $prix = $billets[$billet]['prix'];
 
-$error = '';
+// Je crée un tableau vide pour stocker les erreurs
+$errors = [];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-    $quantite = $_POST['quantite'] ?? 1;
+    $quantite = $_POST['quantite'] ?? '';
     $datesChoisies = $_POST['dates'] ?? [];
 
     $idUser = $_SESSION['user']['id'];
-    $idRepresentation = 1;
     $dateReservation = date('Y-m-d');
 
     if ($billet === 'pass') {
@@ -50,23 +54,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
     if ($billet === '1_jour' && count($datesChoisies) !== 1) {
-        $error = "Tu dois choisir 1 jour.";
+        $errors['dates'] = "Tu dois choisir 1 jour.";
     }
 
     if ($billet === '2_jours' && count($datesChoisies) !== 2) {
-        $error = "Tu dois choisir 2 jours.";
+        $errors['dates'] = "Tu dois choisir 2 jours.";
     }
 
-    if ($error === '') {
-
-        $sql = "INSERT INTO Reservation
-                (Id_User, Id_representation, date_reservation, date_jour, quantite, type_billet, prix)
-                VALUES (?, ?, ?, ?, ?, ?, ?)";
-
-        $stmt = $pdo->prepare($sql);
-
+    if (!$errors) {
+        //Ici on cherche les representations qui correspondent au jours choisis 
         foreach ($datesChoisies as $dateJour) {
 
+            $sql = "SELECT ID_representation
+                    FROM Representation
+                    Where date_debut = ?";
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([$dateJour]);
+
+            $idRepresentation = $stmt->fetchColumn();
+
+            if (!$idRepresentation){
+                $errors['dates'] = "Il n'y a aucune représentation pour cet date.";
+                break;
+            }
+
+            // Préparation de l'enregistrement de la réservation
+            $sql = "INSERT INTO Reservation
+                    (Id_User, Id_representation, date_reservation, date_jour, quantite, type_billet, prix)
+                    VALUES (?, ?, ?, ?, ?, ?, ?)";
+
+            $stmt = $pdo->prepare($sql);
+        
             $stmt->execute([
                 $idUser,
                 $idRepresentation,
@@ -78,8 +97,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             ]);
         }
 
+    if(!$errors){
         header('Location: index.php?page=profil');
         exit;
+    }
     }
 }
 
