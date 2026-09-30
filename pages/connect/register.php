@@ -1,13 +1,25 @@
 <?php
 
 $errors = [];
-$values = ['email' => ''];
+$values = ['nom' => '',
+           'prenom' => '',
+           'email' => ''];
 
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
+    $values['nom'] = trim($_POST['nom'] ?? '');
+    $values['prenom'] = trim($_POST['prenom'] ?? '');
     $values['email'] = trim($_POST['email'] ?? '');
     $password = trim($_POST["password"] ?? '');
     $confirmation = trim($_POST["confirmation"] ?? '');
+
+    if($values['nom'] === ''){
+        $errors['nom'] = "Le nom est obligatoire."; 
+    }
+
+    if($values['prenom'] === ''){
+        $errors['prenom'] = "Le prenom est obligatoire."; 
+    }
 
     if($values['email'] === ''){
         $errors['email'] = "L'email est obligatoire.";
@@ -46,15 +58,20 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
             $password_hash = password_hash($password, PASSWORD_DEFAULT);
 
-            $sql = "INSERT INTO User_ (email, mot_de_passe)
-            VALUES (?, ?)";
+            $sql = "INSERT INTO User_ (nom, prenom, email, mot_de_passe)
+            VALUES (?, ?, ?, ?)";
 
             $stmt = $pdo->prepare($sql);
-            $stmt->execute([$values['email'], $password_hash]);
+            $stmt->execute([$values['nom'],
+                            $values['prenom'],
+                            $values['email'], 
+                            $password_hash]);
 
             $_SESSION['user'] = [
                 'id' => $pdo->lastInsertId(),
                 'email' => $values['email'],
+                'nom' => $values['nom'],
+                'prenom' => $values['prenom'],
             ];
 
             header('Location: index.php');
@@ -70,6 +87,22 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
 <h1>S'inscrire</h1>
 
 <form method="post">
+    <div>
+        <label for="nom">Nom</label>
+        <input type="nom" name="nom" id="nom" value="<?= $values['nom'] ?>">
+        <?php if(isset($errors['nom'])) : ?>
+            <span class="error"><?= $errors['nom'] ?></span>
+        <?php endif ?>
+    </div>
+
+    <div>
+        <label for="prenom">Prenom</label>
+        <input type="prenom" name="prenom" id="prenom" value="<?= $values['prenom'] ?>">
+        <?php if(isset($errors['prenom'])) : ?>
+            <span class="error"><?= $errors['prenom'] ?></span>
+        <?php endif ?>
+    </div> 
+
     <div>
         <label for="email">Email</label>
         <input type="email" name="email" id="email" value="<?= $values['email'] ?>">

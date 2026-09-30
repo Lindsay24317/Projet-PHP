@@ -25,7 +25,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
     // On verifie que l'utilisateur n'entre pas d'erreurs
     if (!$errors){
 
-        $sql = "SELECT Id_User, email, mot_de_passe, role 
+        $sql = "SELECT Id_User, nom, prenom, email, mot_de_passe, role 
                 From User_ 
                 WHERE email = ?";
 
@@ -41,6 +41,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
             $_SESSION['user'] = [
                 'id' => $user['Id_User'],
                 'email' => $user['email'],
+                'nom' => $user['nom'],
+                'prenom' => $user['prenom'],
                 'role' => $user['role'],
             ];
             header("Location: index.php?page=profil");

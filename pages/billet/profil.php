@@ -7,7 +7,7 @@ if (!isset($_SESSION['user'])) {
 // Récupération de l'id et de l'email de l'utilisateur
 $idUser = $_SESSION['user']['id'];
 
-$sql = "SELECT email
+$sql = "SELECT prenom, nom, email
         FROM User_
         WHERE Id_User = ?";
 
@@ -32,6 +32,8 @@ $billets = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 <h2>Mes informations</h2>
 
+<p>Prenom : <?= htmlspecialchars($user['prenom']) ?></p>
+<p>Nom : <?= htmlspecialchars($user['nom']) ?></p>
 <p>Email : <?= htmlspecialchars($user['email']) ?></p>
 
 <h2>Mes billets</h2>
